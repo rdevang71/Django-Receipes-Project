@@ -1,0 +1,30 @@
+{% extends "base.html "%}
+{% block start %}
+    {{peoples}}
+  <table>
+    <tr>
+      <th>SR.N.</th>
+      <th>Age</th>
+      <th>Age</th>
+      <th>can vote</th>
+    </tr>
+    {% for people in peoples %}
+    <tr>
+      <td>{{forloop.counter}}</td>
+      <td>{{people.name}}</td>
+      <td>{{people.age}}</td>
+      <td>
+        {% if people.age >= 18 %}
+        yes
+        {% else %}
+        No
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+
+    <a href="/contact/">contact</a>
+    <a href="/about/">  about</a>
+
+  </table>
+{% endblock %}
