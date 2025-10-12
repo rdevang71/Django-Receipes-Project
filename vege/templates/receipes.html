@@ -5,6 +5,7 @@
     <div class="col-md-8">
       <form class="card p-4 shadow-lg rounded" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+        <input type="hidden" name="add_recipe" value="true">
         <h2 class="text-center mb-4 text-primary">Add Recipe</h2>
         <hr>
 
@@ -29,5 +30,31 @@
       </form>
     </div>
   </div>
+
+  {% if receipes %}
+  <div class="row mt-5">
+    <h3 class="text-center text-secondary mb-4">All Recipes</h3>
+    {% for recipe in receipes %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        {% if recipe.receipe_image %}
+        <img src="{{ recipe.receipe_image.url }}" class="card-img-top img-fluid" alt="Recipe Image" style="height: 200px; object-fit: cover;">
+        {% else %}
+        <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
+          No Image Available
+        </div>
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title text-primary">{{ recipe.receipe_name }}</h5>
+          <p class="card-text">{{ recipe.receipe_description }}</p>
+          <a href="{% url 'delete_receipe' recipe.id %}" class="btn btn-danger btn-sm mt-2 w-100">Delete</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-center text-muted mt-5">No recipes added yet.</p>
+  {% endif %}
 </div>
 {% endblock %}
