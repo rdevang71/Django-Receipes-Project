@@ -1,31 +1,62 @@
-{% extends "base.html" %}
-{% block start %}
+{% extends "base.html" %} {% block start %}
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <form class="card p-4 shadow-lg rounded" method="POST" enctype="multipart/form-data">
+      <form
+        class="card p-4 shadow-lg rounded"
+        method="POST"
+        enctype="multipart/form-data"
+      >
         {% csrf_token %}
-        <input type="hidden" name="add_recipe" value="true">
+        <input type="hidden" name="add_recipe" value="true" />
         <h2 class="text-center mb-4 text-primary">Add Recipe</h2>
-        <hr>
+        <hr />
 
         <div class="mb-3">
-          <label for="receipe_name" class="form-label fw-semibold">Recipe Name</label>
-          <input type="text" class="form-control" id="receipe_name" name="receipe_name" placeholder="Enter recipe name" required>
+          <label for="receipe_name" class="form-label fw-semibold"
+            >Recipe Name</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="receipe_name"
+            name="receipe_name"
+            placeholder="Enter recipe name"
+            required
+          />
         </div>
 
         <div class="mb-3">
-          <label for="receipe_description" class="form-label fw-semibold">Description</label>
-          <textarea class="form-control" id="receipe_description" name="receipe_description" rows="4" placeholder="Describe your recipe" required></textarea>
+          <label for="receipe_description" class="form-label fw-semibold"
+            >Description</label
+          >
+          <textarea
+            class="form-control"
+            id="receipe_description"
+            name="receipe_description"
+            rows="4"
+            placeholder="Describe your recipe"
+            required
+          ></textarea>
         </div>
 
         <div class="mb-3">
-          <label for="receipe_image" class="form-label fw-semibold">Upload Image</label>
-          <input class="form-control" type="file" id="receipe_image" name="receipe_image" required>
+          <label for="receipe_image" class="form-label fw-semibold"
+            >Upload Image</label
+          >
+          <input
+            class="form-control"
+            type="file"
+            id="receipe_image"
+            name="receipe_image"
+            required
+          />
         </div>
 
         <div class="d-grid gap-2 col-6 mx-auto mt-4">
-          <button type="submit" class="btn btn-success btn-lg">Add Recipe</button>
+          <button type="submit" class="btn btn-success btn-lg">
+            Add Recipe
+          </button>
         </div>
       </form>
     </div>
@@ -38,16 +69,33 @@
     <div class="col-md-4 mb-4">
       <div class="card h-100 shadow-sm">
         {% if recipe.receipe_image %}
-        <img src="{{ recipe.receipe_image.url }}" class="card-img-top img-fluid" alt="Recipe Image" style="height: 200px; object-fit: cover;">
+        <img
+          src="{{ recipe.receipe_image.url }}"
+          class="card-img-top img-fluid"
+          alt="Recipe Image"
+          style="height: 200px; object-fit: cover"
+        />
         {% else %}
-        <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
+        <div
+          class="bg-secondary text-white d-flex align-items-center justify-content-center"
+          style="height: 200px"
+        >
           No Image Available
         </div>
         {% endif %}
         <div class="card-body">
           <h5 class="card-title text-primary">{{ recipe.receipe_name }}</h5>
           <p class="card-text">{{ recipe.receipe_description }}</p>
-          <a href="{% url 'delete_receipe' recipe.id %}" class="btn btn-danger btn-sm mt-2 w-100">Delete</a>
+          <a
+            href="{% url 'delete_receipe' recipe.id %}"
+            class="btn btn-danger btn-sm mt-2 w-100"
+            >Delete</a
+          >
+          <a
+            href="{% url 'update_receipe' recipe.id %}"
+            class="btn btn-warning btn-sm mt-2 w-100"
+            >Update</a
+          >
         </div>
       </div>
     </div>
