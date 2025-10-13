@@ -25,6 +25,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('', home, name='home'),
     path('about/', about, name='about'),
+    path('login/', login_page, name='login_page'),
+    path('register/', register_page, name='register_page'),
     path('contact/', contact, name='contact'),
     path('receipes/', receipes, name='receipes'),
     path('delete_receipe/<int:id>/', delete_receipe, name='delete_receipe'),
