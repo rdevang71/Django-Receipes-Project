@@ -49,28 +49,6 @@ def update_receipe(request, id):
     return render(request, 'update_receipe.html', context)
 
 
-def login_page(request):
-    if request.method == "POST":
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-
-        try:
-            user_obj = User.objects.get(email=email)
-            user = authenticate(request, username=user_obj.username, password=password)
-
-            if user is not None:
-                login(request, user)
-                messages.success(request, "Login successful.")
-                return redirect("home")  # Replace 'home' with your desired redirect URL name
-            else:
-                messages.error(request, "Invalid credentials.")
-        except User.DoesNotExist:
-            messages.error(request, "No account found with that email.")
-
-    return render(request, "login.html")
-
-
-
 def register_page(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -88,3 +66,24 @@ def register_page(request):
             return redirect("login_page")
 
     return render(request, "register.html")
+
+
+def login_page(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        try:
+            user_obj = User.objects.get(email=email)
+            user = authenticate(request, username=user_obj.username, password=password)
+
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Login successful.")
+                return redirect("home")  # Replace with your actual home view name
+            else:
+                messages.error(request, "Invalid credentials.")
+        except User.DoesNotExist:
+            messages.error(request, "No account found with that email.")
+
+    return render(request, "login.html")
