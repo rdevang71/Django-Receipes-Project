@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Recipe
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
-
-
+@login_required(login_url='login_page')
 def receipes(request):
     if request.method == "POST":
         receipe_name = request.POST.get('receipe_name')
@@ -69,6 +68,10 @@ def register_page(request):
 
 
 def login_page(request):
+    # If user was redirected here by @login_required, 'next' will be present in GET
+    if request.method == "GET" and request.GET.get('next'):
+        messages.error(request, "You need to Register/Login to go to this page")
+
     if request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
@@ -90,4 +93,4 @@ def login_page(request):
 
 def logout_page(request):
     logout(request)
-    return('/login/')
+    return redirect('login_page')
