@@ -80,10 +80,14 @@ def login_page(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, "Login successful.")
-                return redirect("home")  # Replace with your actual home view name
+                return redirect("home")  
             else:
                 messages.error(request, "Invalid credentials.")
         except User.DoesNotExist:
             messages.error(request, "No account found with that email.")
 
     return render(request, "login.html")
+
+def logout_page(request):
+    logout(request)
+    return('/login/')
